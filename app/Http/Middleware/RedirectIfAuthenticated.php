@@ -23,9 +23,11 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
+                // return json response if coming from FE
                 if ($request->expectsJson()) {
                     return response()->json([], 200);
                 }
+                // otherwise, redirect to home page const
                 return redirect(RouteServiceProvider::HOME);
             }
         }
